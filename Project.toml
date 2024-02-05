@@ -8,4 +8,3 @@ StyledStrings = "f489334b-da3d-4c2e-b8f0-e476e12c162b"
 
 [compat]
 StyledStrings = "1.11"
-REPL = "1.11"
