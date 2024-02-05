@@ -1,0 +1,9 @@
+#+title: API
+
+#+begin_src @docs
+InteractivePrompts.render
+InteractivePrompts.clear
+InteractivePrompts.abort
+InteractivePrompts.focus
+InteractivePrompts.unfocus
+#+end_src
