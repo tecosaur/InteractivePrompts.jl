@@ -1,9 +1,38 @@
 #+title: API
 
+* Overview
+
+In order to support =InteractivePrompts=, you need to specify how a certain
+display should handle (see Interface functions) a certain question (see Question
+types).
+
+While this page does detail the requirements, it is probably best paired with an
+example to get a sense of how this might look in practice.
+
+* Question types
+** Foundational types
+
+#+begin_src @docs
+InteractivePrompts.Prompt
+InteractivePrompts.Behaviour
+InteractivePrompts.Style
+InteractivePrompts.Question
+InteractivePrompts.Answer
+#+end_src
+
+** Specific forms
+
+#+begin_src @docs
+InteractivePrompts.Confirmation
+#+end_src
+
+* Interface functions
+
 #+begin_src @docs
 InteractivePrompts.render
 InteractivePrompts.clear
 InteractivePrompts.abort
 InteractivePrompts.focus
 InteractivePrompts.unfocus
+InteractivePrompts.answer
 #+end_src
