@@ -12,52 +12,90 @@ function ask(@nospecialize q::Question)
     ask(disp, q)
 end
 
-function ask(d::AbstractDisplay, q::Question)
+function ask(d::AbstractDisplay, q::Question{T}) where {T}
     @nospecialize
+    local state
     try
-        render(d, q)
+        state = render(d, q)
+        state = focus(d, q, state)
     catch err
-        if err isa InterruptException
-            abort(d, q)
+        if err isa InterruptException && isdefined(state)
+            state = abort(d, q, state)
         else
             rethrow()
         end
+    finally
+        state = unfocus(d, q, state)
     end
+    answer(d, q, state)::Answer{T}
 end
 
 """
     render(d::AbstractDisplay, q::Question)
 
-TODO
+Render the question `q` to the display `d`.
+
+Produces a representaton of the question's state.
+
+TODO improve docstring
 """
 function render end
 
 """
-    clear(d::AbstractDisplay, q::Question)
+    clear(d::AbstractDisplay, q::Question, state)
 
-TODO
+Clear the previous rendering of `q` in the display `d`.
+
+TODO improve docstring
 """
 function clear end
 
 """
-    abort(d::AbstractDisplay, [q::Question])
+    abort(d::AbstractDisplay, [q::Question, state::Any])
 
-TODO
+Abort the attempt to answer `q` in the display `d`.
+
+Methods accepting `q` and `state` arguments must return the new state.
+
+TODO improve docstring
 """
 function abort end
 
-abort(d::AbstractDisplay, ::Question) = @nospecialize abort(d)
+abort(d::AbstractDisplay, q::Question, state) = (@nospecialize abort(d); state)
 
 """
-    focus(q::Question)
+    focus(d::AbstractDisplay, [q::Question, state::Any])
 
-TODO
+Give focus to the question `q` in display `d`. Exactly one question should have
+focus at any one time.
+
+Methods accepting `q` and `state` arguments must return the new state.
+
+TODO improve docstring
 """
 function focus end
 
-"""
-    unfocus(q::Question)
+focus(d::AbstractDisplay, q::Question, state) = (@nospecialize focus(d); state)
 
-TODO
+"""
+    unfocus(d::AbstractDisplay, [q::Question, state::Any])
+
+Remove focus from the question `q` in display `d`. Exactly one question should
+have focus at any one time.
+
+Methods accepting `q` and `state` arguments must return the new state.
+
+TODO improve docstring
 """
 function unfocus end
+
+unfocus(d::AbstractDisplay, q::Question, state) = (@nospecialize unfocus(d); state)
+
+"""
+    answer(d::AbstractDisplay, q::Question, state)
+
+Extract the answer to `q` (show in display `d`) from `state`.
+
+TODO improve docstring
+"""
+function answer end
