@@ -1,0 +1,11 @@
+name = "InteractivePrompts"
+uuid = "4ec722a5-573b-4802-b192-35d1a873676d"
+authors = ["TEC <git@tecosaur.net>"]
+version = "0.1.0"
+
+[deps]
+StyledStrings = "f489334b-da3d-4c2e-b8f0-e476e12c162b"
+
+[compat]
+StyledStrings = "1.11"
+REPL = "1.11"

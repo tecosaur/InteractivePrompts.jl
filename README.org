@@ -1,0 +1,4 @@
+#+title: InteractivePrompts.jl
+#+author: tecosaur
+
+A flexible foundation for basic user interaction.
